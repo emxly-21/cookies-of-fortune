@@ -37,7 +37,7 @@ for batch_cnt in range(0, len(x_train) // batch_size):
     pass
 
     # compute the accuracy between the prediction and the truth
-    acc = accuracy(pred, truth)
+    #acc = accuracy(predicitons, truth)
     pass
 
     # execute gradient descent by calling step() of optim

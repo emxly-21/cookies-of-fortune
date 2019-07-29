@@ -11,14 +11,14 @@ from mygrad.nnet.layers import max_pool
 from mynn.optimizers.sgd import SGD
 from mygrad.nnet.losses import softmax_crossentropy
 
-
+gain = {'gain': np.sqrt(2)}
 class Model:
 
     def __init__(self):
-        self.conv1 = conv(1, 20, 5, 5, stride=1, weight_initializer=glorot_uniform)
-        self.conv2 = conv(20, 10, 5, 5, stride=1, weight_initializer=glorot_uniform)
-        self.dense1 = dense(250, 20, weight_initializer=glorot_uniform, weight_kwargs=gain)
-        self.dense2 = dense(20, 26, weight_initializer=glorot_uniform, weight_kwargs=gain)
+        self.conv1 = conv(1, 50, 3, 3, stride=1, weight_initializer=glorot_uniform)
+        self.conv2 = conv(50, 20, 3, 3, stride=1, weight_initializer=glorot_uniform)
+        self.dense1 = dense(180, 50, weight_initializer=glorot_uniform, weight_kwargs=gain)
+        self.dense2 = dense(50, 29, weight_initializer=glorot_uniform, weight_kwargs=gain)
 
         pass
 
