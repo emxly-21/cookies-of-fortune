@@ -1,4 +1,4 @@
-import Model
+from Model import Model
 from mynn.layers.conv import conv
 from mynn.layers.dense import dense
 from mynn.layers.dropout import dropout
@@ -10,7 +10,7 @@ from mygrad.nnet.losses import softmax_crossentropy
 
 
 
-#needs import/download of dataset
+#needs import/download of data set
 #our train = xtrain
 #our truth = ytrain
 
@@ -24,15 +24,15 @@ optimization = SGD(model.parameters, learning_rate=lr, momentum=mn, weight_decay
 
 batch_size = #give number here
 
-for batch_cnt in range(0, len(x_train) // batch_size):
+for batch_cnt in range(0, len(xtrain) // batch_size):
     batch_indices = idxs[batch_cnt * batch_size: (batch_cnt + 1) * batch_size]
-    batch = x_train[batch_indices]  # random batch of our training data
+    batch = xtrain[batch_indices]  # random batch of our training data
 
     # compute the predictions for this batch by calling on model
     predictions = model(batch)
     pass
 
-    truth = y_train[batch_indices]
+    truth = ytrain[batch_indices]
     pass
 
     # compute the loss
@@ -44,10 +44,10 @@ for batch_cnt in range(0, len(x_train) // batch_size):
     pass
 
     # compute the accuracy between the prediction and the truth
-    #acc = accuracy(predicitons, truth)
+    #acc = accuracy(predictions, truth)
     pass
 
-    # execute gradient descent by calling step() of optim
+    # execute gradient descent by calling step() of optimization
     optimization.step()
     pass
 
