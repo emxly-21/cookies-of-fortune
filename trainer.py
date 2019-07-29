@@ -1,17 +1,24 @@
 import Model
+from mynn.layers.conv import conv
+from mynn.layers.dense import dense
+from mynn.layers.dropout import dropout
+from mynn.activations.relu import relu
+from mynn.initializers.glorot_uniform import glorot_uniform
+from mygrad.nnet.layers import max_pool
 from mynn.optimizers.sgd import SGD
 from mygrad.nnet.losses import softmax_crossentropy
 
 
+
 #needs import/download of dataset
-#our train = x_train
-#our truth = y_train
+#our train = xtrain
+#our truth = ytrain
 
 
 model = Model()
-lr = #enter learning rate
-mn= # put in momentum
-wd = # put in weight decay
+lr = 0.01
+mn= 0.9
+wd = 5e-04
 
 optimization = SGD(model.parameters, learning_rate=lr, momentum=mn, weight_decay=wd)
 
