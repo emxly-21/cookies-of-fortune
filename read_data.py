@@ -1,7 +1,20 @@
 import numpy as np
 import cv2
 
+
 def read_train():
+    """
+    Reads in training data (26 letters, delete, nothing, space) from the asl_alphabet_train folder.
+
+    Saves
+    -----
+    xtrain : numpy.ndarray
+        A (29, 3000, 200, 200, 3)-dimensional array with 3000 images for each letter, delete, nothing,
+        and space, each with 200x200 dimensions.
+
+    ytrain : numpy.ndarray
+        A (29,)-dimensional array with each letter, delete, nothing, and space.
+    """
     uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     xtrain = []
@@ -36,4 +49,7 @@ def read_train():
     xtrain = np.array(xtrain)
     ytrain = np.array(ytrain)
 
-    return xtrain, ytrain
+    with open('xtrain.npy', mode="wb") as f:
+        np.save(f, xtrain)
+    with open('ytrain.npy', mode="wb") as f:
+        np.save(f, ytrain)
