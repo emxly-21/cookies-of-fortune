@@ -57,7 +57,44 @@ def read_train():
     xtrain -= mean_train
     xtrain /= sd_train
 
-    with open('xtrain_gray1000.npy', mode="wb") as f:
+    with open('xtrain_gray.npy', mode="wb") as f:
         np.save(f, xtrain)
-    with open('ytrain_gray1000.npy', mode="wb") as f:
+    with open('ytrain_gray.npy', mode="wb") as f:
         np.save(f, ytrain)
+
+
+def read_test():
+    uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    xtest = []
+    ytest = []
+
+    path = "asl_alphabet_test/"
+
+    for letter in range(len(uppercase)):
+        for number in range(1, 1001):
+            let = uppercase[letter]
+            ytest.append(letter)
+            xtest.append(cv2.imread(path + let + "_test.jpg", cv2.IMREAD_GRAYSCALE))
+
+    ytest.append(26)
+    xtest.append(cv2.imread(path + "del_test.jpg", cv2.IMREAD_GRAYSCALE))
+
+    ytest.append(27)
+    xtest.append(cv2.imread(path + "nothing_test.jpg", cv2.IMREAD_GRAYSCALE))
+
+    ytest.append(28)
+    xtest.append(cv2.imread(path + "space_test.jpg", cv2.IMREAD_GRAYSCALE))
+
+    xtest = np.array(xtest).astype(np.float64)
+    ytest = np.array(ytest)
+
+    mean_train = np.mean(xtest)
+    sd_train = np.std(xtest)
+    xtest -= mean_train
+    xtest /= sd_train
+
+    with open('xtest_gray.npy', mode="wb") as f:
+        np.save(f, xtest)
+    with open('ytest_gray.npy', mode="wb") as f:
+        np.save(f, ytest)
