@@ -53,3 +53,14 @@ def read_train():
         np.save(f, xtrain)
     with open('ytrain.npy', mode="wb") as f:
         np.save(f, ytrain)
+
+
+from skimage import io
+img = io.imread('image.png', as_grey=True)
+#or
+from skimage import color
+from skimage import io
+
+img = color.rgb2gray(io.imread('image.png'))
+
+img = cv2.imread('example.jpg', 0)
