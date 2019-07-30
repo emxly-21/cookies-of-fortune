@@ -13,7 +13,7 @@ def read_train():
         and space, each with 200x200 dimensions.
 
     ytrain : numpy.ndarray
-        A (29,)-dimensional array with each letter, delete, nothing, and space.
+        A (29,)-dimensional array with each letter (numbered 0-25), delete (26), nothing (27), and space (28).
     """
     uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
@@ -21,46 +21,44 @@ def read_train():
     ytrain = []
 
     path = "asl_alphabet_train/"
-    for letter in range(26):
-        l = uppercase[letter]
-        ytrain.append(l)
-        xtrain.append([])
+    for letter in range(len(uppercase)):
         for number in range(1, 3001):
-            xtrain[letter].append(cv2.imread(path + l + "/" + l + str(number) + ".jpg", cv2.IMREAD_COLOR))
+            let = uppercase[letter]
+            ytrain.append(letter)
+            xtrain.append(cv2.imread(path + let + "/" + let + str(number) + ".jpg", cv2.IMREAD_GRAYSCALE))
 
     path = "asl_alphabet_train/del/"
-    xtrain.append([])
-    ytrain.append("del")
     for number in range(1, 3001):
-        xtrain[26].append(cv2.imread(path + "del" + str(number) + ".jpg", cv2.IMREAD_COLOR))
+        ytrain.append(26)
+        xtrain.append(cv2.imread(path + "del" + str(number) + ".jpg", cv2.IMREAD_GRAYSCALE))
 
     path = "asl_alphabet_train/nothing/"
-    xtrain.append([])
-    ytrain.append("nothing")
     for number in range(1, 3001):
-        xtrain[27].append(cv2.imread(path + "nothing" + str(number) + ".jpg", cv2.IMREAD_COLOR))
+        ytrain.append(27)
+        xtrain.append(cv2.imread(path + "nothing" + str(number) + ".jpg", cv2.IMREAD_GRAYSCALE))
 
     path = "asl_alphabet_train/space/"
-    xtrain.append([])
-    ytrain.append("space")
     for number in range(1, 3001):
-        xtrain[28].append(cv2.imread(path + "space" + str(number) + ".jpg", cv2.IMREAD_COLOR))
+        ytrain.append(28)
+        xtrain.append(cv2.imread(path + "space" + str(number) + ".jpg", cv2.IMREAD_GRAYSCALE))
 
     xtrain = np.array(xtrain)
     ytrain = np.array(ytrain)
 
-    with open('xtrain.npy', mode="wb") as f:
+    xtrain = xtrain.reshape(87000, 120000)
+
+    with open('xtrain_gray.npy', mode="wb") as f:
         np.save(f, xtrain)
-    with open('ytrain.npy', mode="wb") as f:
+    with open('ytrain_gray.npy', mode="wb") as f:
         np.save(f, ytrain)
 
 
-from skimage import io
-img = io.imread('image.png', as_grey=True)
+#from skimage import io
+#img = io.imread('image.png', as_grey=True)
 #or
 from skimage import color
 from skimage import io
 
-img = color.rgb2gray(io.imread('image.png'))
+#img = color.rgb2gray(io.imread('image.png'))
 
-img = cv2.imread('example.jpg', 0)
+#img = cv2.imread('example.jpg', 0)
