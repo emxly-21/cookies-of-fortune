@@ -5,7 +5,7 @@ from mynn.layers.dropout import dropout
 from mynn.activations.relu import relu
 from mynn.initializers.glorot_uniform import glorot_uniform
 from mygrad.nnet.layers import max_pool
-from mynn.optimizers.sgd import SGD
+from mynn.optimizers.adam import Adam
 from mygrad.nnet.losses import softmax_crossentropy
 
 
@@ -16,11 +16,10 @@ from mygrad.nnet.losses import softmax_crossentropy
 
 
 model = Model()
-lr = 0.01
-mn= 0.9
-wd = 5e-04
+lr = 1e-2
+wd = 1e-04
 
-optimization = SGD(model.parameters, learning_rate=lr, momentum=mn, weight_decay=wd)
+optimization = Adam(model.parameters, learning_rate=lr, weight_decay=wd)
 
 batch_size = #give number here
 
