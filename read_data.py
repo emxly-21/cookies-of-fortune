@@ -15,6 +15,8 @@ def read_train():
     ytrain : numpy.ndarray
         A (29,)-dimensional array with each letter (numbered 0-25), delete (26), nothing (27), and space (28).
     """
+    # if color images needed instead of grayscale, use cv2.IMREAD_COLOR instead of cv2.IMREAD_GRAYSCALE
+
     uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
     xtrain = []
@@ -22,43 +24,40 @@ def read_train():
 
     path = "asl_alphabet_train/"
     for letter in range(len(uppercase)):
-        for number in range(1, 3001):
+        for number in range(1, 1001):
             let = uppercase[letter]
             ytrain.append(letter)
             xtrain.append(cv2.imread(path + let + "/" + let + str(number) + ".jpg", cv2.IMREAD_GRAYSCALE))
 
     path = "asl_alphabet_train/del/"
-    for number in range(1, 3001):
+    for number in range(1, 1001):
         ytrain.append(26)
         xtrain.append(cv2.imread(path + "del" + str(number) + ".jpg", cv2.IMREAD_GRAYSCALE))
 
     path = "asl_alphabet_train/nothing/"
-    for number in range(1, 3001):
+    for number in range(1, 1001):
         ytrain.append(27)
         xtrain.append(cv2.imread(path + "nothing" + str(number) + ".jpg", cv2.IMREAD_GRAYSCALE))
 
     path = "asl_alphabet_train/space/"
-    for number in range(1, 3001):
+    for number in range(1, 1001):
         ytrain.append(28)
         xtrain.append(cv2.imread(path + "space" + str(number) + ".jpg", cv2.IMREAD_GRAYSCALE))
 
-    xtrain = np.array(xtrain)
+    xtrain = np.array(xtrain).astype(np.float64)
     ytrain = np.array(ytrain)
 
-    xtrain = xtrain.reshape(87000, 120000)
+    # for color images, reshape to 87000 x 120000
+    # for all grayscale images, reshape to 29000 x 120000
+    # for one-third grayscale images, reshape to 29000 x 40000
+    xtrain = xtrain.reshape(29000, 40000)
 
-    with open('xtrain_gray.npy', mode="wb") as f:
+    mean_train = np.mean(xtrain)
+    sd_train = np.std(xtrain)
+    xtrain -= mean_train
+    xtrain /= sd_train
+
+    with open('xtrain_gray1000.npy', mode="wb") as f:
         np.save(f, xtrain)
-    with open('ytrain_gray.npy', mode="wb") as f:
+    with open('ytrain_gray1000.npy', mode="wb") as f:
         np.save(f, ytrain)
-
-
-#from skimage import io
-#img = io.imread('image.png', as_grey=True)
-#or
-from skimage import color
-from skimage import io
-
-#img = color.rgb2gray(io.imread('image.png'))
-
-#img = cv2.imread('example.jpg', 0)
