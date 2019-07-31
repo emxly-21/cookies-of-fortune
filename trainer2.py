@@ -53,7 +53,7 @@ for i in idxs:
 x_train = np.array(x_train)
 y_train = np.array(y_train)
 
-model = Model2Model()
+model = Model2.Model()
 lr = 0.01
 mn = 0.9
 wd = 5e-04
