@@ -72,10 +72,9 @@ def read_test():
     path = "asl_alphabet_test/"
 
     for letter in range(len(uppercase)):
-        for number in range(1, 1001):
-            let = uppercase[letter]
-            ytest.append(letter)
-            xtest.append(cv2.imread(path + let + "_test.jpg", cv2.IMREAD_GRAYSCALE))
+        let = uppercase[letter]
+        ytest.append(letter)
+        xtest.append(cv2.imread(path + let + "_test.jpg", cv2.IMREAD_GRAYSCALE))
 
     ytest.append(26)
     xtest.append(cv2.imread(path + "del_test.jpg", cv2.IMREAD_GRAYSCALE))
@@ -86,8 +85,17 @@ def read_test():
     ytest.append(28)
     xtest.append(cv2.imread(path + "space_test.jpg", cv2.IMREAD_GRAYSCALE))
 
-    xtest = np.array(xtest).astype(np.float64)
+    xtest = np.array(xtest)
     ytest = np.array(ytest)
+    xtestlist=[[[k for k in j]for j in i] for i in xtest]
+    xtest=np.array(xtestlist)
+    print(xtest.shape)
+
+
+    print(ytest)
+    print(ytest.shape)
+
+    xtest = xtest.reshape(29, 40000).astype(np.float64)
 
     mean_train = np.mean(xtest)
     sd_train = np.std(xtest)
