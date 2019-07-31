@@ -13,7 +13,6 @@ def launch_app():
 @ask.intent("FortuneIntent")
 def give_fortune():
     return statement(generator.tell_fortune())
-"""
 
 @ask.intent("CowardIntent")
 def coward():
@@ -29,6 +28,6 @@ def coward():
 @ask.intent("CancelIntent")
 def bye():
     return statement("Goodbye")
-
+"""
 if __name__ == "__main__":
     app.run(debug=True)

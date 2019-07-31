@@ -52,14 +52,14 @@ def read_train():
     # for one-third grayscale images, reshape to 29000 x 40000
     xtrain = xtrain.reshape(29000, 40000)
 
-    mean_train = np.mean(xtrain)
-    sd_train = np.std(xtrain)
-    xtrain -= mean_train
-    xtrain /= sd_train
+    #mean_train = np.mean(xtrain)
+    #sd_train = np.std(xtrain)
+    #xtrain -= mean_train
+    #xtrain /= sd_train
 
-    with open('xtrain_gray.npy', mode="wb") as f:
+    with open('xtrain_gray_nonnorm.npy', mode="wb") as f:
         np.save(f, xtrain)
-    with open('ytrain_gray.npy', mode="wb") as f:
+    with open('ytrain_gray_nonnorm.npy', mode="wb") as f:
         np.save(f, ytrain)
 
 

@@ -1,7 +1,7 @@
 import fortune_tell
 
 
-path_to_fortunes = r"C:\Users\Leviathan\CogWorks\cogworks-final\fortune_cookie_fortune_teller\fortune_bank.txt"
+path_to_fortunes = r"fortune_bank.txt"
 with open(path_to_fortunes, "r", encoding="utf8") as f:
     fortunes = f.read()
 print(str(len(fortunes)) + " character(s)")

@@ -16,4 +16,5 @@ def get_signs():
         img_session.append(resized)
     return img_session
 
+
 #to normalize subtract mean and divide by standard deviation
