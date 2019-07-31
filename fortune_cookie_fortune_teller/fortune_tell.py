@@ -30,12 +30,12 @@ def normalize(counter):
 
         Examples
         --------
-        >>> from collections import Counter
-        >>> letter_count = Counter({"a": 1, "b": 3})
-        >>> letter_count
+        #>>> from collections import Counter
+        #>>> letter_count = Counter({"a": 1, "b": 3})
+        #>>> letter_count
         Counter({'a': 1, 'b': 3})
 
-        >>> normalize(letter_count)
+        #>>> normalize(letter_count)
         [('b', 0.75), ('a', 0.25)]
     """
     # <COGINST>
@@ -93,7 +93,7 @@ def train_lm(text_lst, n):
 
     Examples
     --------
-    >>> train_lm("cacao", 3)
+    #>>> train_lm("cacao", 3)
     {'ac': [('a', 1.0)],
      'ca': [('c', 0.5), ('o', 0.5)],
      '~c': [('a', 1.0)],
@@ -105,7 +105,7 @@ def train_lm(text_lst, n):
 
 
     for text in text_lst:
-        text = default + text.split()
+        text = default + str(text.split())
 
         view = 0
         for window in range(len(text) - (n - 1)):
