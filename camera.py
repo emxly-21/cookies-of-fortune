@@ -12,3 +12,5 @@ def get_signs():
     ax.imshow(resized)
 
     return (resized)
+
+get_signs()
