@@ -1,4 +1,4 @@
-import time
+
 import numpy as np
 from collections import Counter
 
@@ -45,8 +45,6 @@ def normalize(counter):
 
 from collections import defaultdict
 
-from collections import defaultdict
-
 
 def train_lm(text_lst, n):
     """ Train character-based n-gram language model.
@@ -78,7 +76,7 @@ def train_lm(text_lst, n):
 
     Parameters
     -----------
-    text: str
+    text_lst: str list
         A string (doesn't need to be lowercased).
     n: int
         The length of n-gram to analyze.
@@ -105,7 +103,8 @@ def train_lm(text_lst, n):
 
 
     for text in text_lst:
-        text = default + str(text.split())
+
+        text = default + ' '.join(str(text).split())
 
         view = 0
         for window in range(len(text) - (n - 1)):
@@ -148,12 +147,13 @@ def generate_letter(lm, history):
     str
         The predicted character. '~' if history is not in language model.
     """
+    vals = lm[history]
+    unzipped = unzip(vals)
+    choices = unzipped[0]
+    probabilities = unzipped[1]
+    letter = np.random.choice(choices, p=probabilities)
 
-    if not history in lm:
-        return "~"
-    letters, probs = unzip(lm[history])
-    i = np.random.choice(letters, p=probs)
-    return i
+    return letter
 
 def generate_text(lm, n, nletters=100):
     """ Randomly generates `nletters` of text by drawing from
