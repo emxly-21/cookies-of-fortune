@@ -8,6 +8,7 @@ def get_signs(n):
     Will take in a bunch of pictures every second for a specified amount of time
     creating np.ndarrays of our signs
     Parameter: n : number of pictures desired to be taken
+    Returns: np.ndarray of our image arrays
     """
 
     count = 0
