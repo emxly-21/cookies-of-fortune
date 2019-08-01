@@ -14,10 +14,9 @@ def get_signs(n):
     Returns: np.ndarray of our image arrays
     """
 
-    count = 0
     img_session = []
     fig, ax = plt.subplots()
-    for count in range(n):
+    for cnt in range(n):
         img_array = take_picture()
         print("Picture taken")
         img_array = img_array[:, 80:560, :]
@@ -26,6 +25,7 @@ def get_signs(n):
         ax.imshow(gray)
         img_session.append(gray)
         plt.show()
+
     img_session = np.array(img_session)
 
     img_array = img_session.reshape(n, 40000).astype(np.float64)
