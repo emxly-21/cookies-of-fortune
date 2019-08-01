@@ -3,10 +3,11 @@ import cv2
 from camera import save_camera_config
 import matplotlib.pyplot as plt
 import numpy as np
+from model_tester import model
 
 save_camera_config(port=0, exposure=1)
 
-def get_signs(n):
+def get_signs(n, weights1, bias1, weights2, bias2, weights3, bias3, weights4, bias4):
     """
     Will take in a bunch of pictures every second for a specified amount of time
     creating np.ndarrays of our signs
@@ -14,26 +15,24 @@ def get_signs(n):
     Returns: np.ndarray of our image arrays
     """
 
-    count = 0
+    uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ!? "
+    str = ""
     img_session = []
     fig, ax = plt.subplots()
     for count in range(n):
         img_array = take_picture()
         print("Picture taken")
-        img_array = img_array[:, 80:560, :]
+        img_array = img_array[:, 280:1000, :]
         resized = cv2.resize(img_array, (200, 200), interpolation=cv2.INTER_AREA)
         gray = cv2.cvtColor(resized, cv2.COLOR_RGB2GRAY)
-        ax.imshow(gray)
-        img_session.append(gray)
+        ax.imshow(gray, cmap = plt.cm.gray)
         plt.show()
-    img_session = np.array(img_session)
+        gray = np.array(gray).reshape(-1, 40000).astype(np.float64)
+        gray -= 126.145118219
+        gray /= 52.3865033171
+        str += uppercase[np.argmax(model(gray, weights1, bias1, weights2, bias2, weights3, bias3, weights4, bias4), axis=1)[0]]
 
-    img_array = img_session.reshape(n, 40000).astype(np.float64)
-
-    img_array -= 126.145118219
-    img_array /= 52.3865033171
-
-    return img_array
+    return str
 
 
 #to normalize subtract mean and divide by standard deviation
