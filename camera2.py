@@ -19,7 +19,7 @@ def get_signs(n, weights1, bias1, weights2, bias2, weights3, bias3, weights4, bi
     str = ""
     img_session = []
     fig, ax = plt.subplots()
-    for count in range(n):
+    for cnt in range(n):
         img_array = take_picture()
         print("Picture taken")
         img_array = img_array[:, 280:1000, :]
@@ -27,7 +27,6 @@ def get_signs(n, weights1, bias1, weights2, bias2, weights3, bias3, weights4, bi
         gray = cv2.cvtColor(resized, cv2.COLOR_RGB2GRAY)
         ax.imshow(gray, cmap = plt.cm.gray)
         plt.show()
-        gray = np.array(gray).reshape(-1, 40000).astype(np.float64)
         gray -= 126.145118219
         gray /= 52.3865033171
         str += uppercase[np.argmax(model(gray, weights1, bias1, weights2, bias2, weights3, bias3, weights4, bias4), axis=1)[0]]
