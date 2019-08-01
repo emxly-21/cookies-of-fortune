@@ -23,12 +23,9 @@ def get_signs(n):
 
     img_array = img_session.reshape(n, 40000).astype(np.float64)
 
-    mean_train = np.mean(img_array)
-    sd_train = np.std(img_array)
-    img_array -= mean_train
-    img_array /= sd_train
+    img_array = (img_array-np.mean(img_array))/np.std(img_array)
 
     return img_array
 
 
-#to normalize subtract mean and divide by standard deviation
+
