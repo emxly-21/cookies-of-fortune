@@ -19,6 +19,7 @@ def get_signs(n):
     fig, ax = plt.subplots()
     for count in range(n):
         img_array = take_picture()
+        print("Picture taken")
         img_array = img_array[:, 80:560, :]
         resized = cv2.resize(img_array, (200, 200), interpolation=cv2.INTER_AREA)
         gray = cv2.cvtColor(resized, cv2.COLOR_RGB2GRAY)
@@ -29,14 +30,10 @@ def get_signs(n):
 
     img_array = img_session.reshape(n, 40000).astype(np.float64)
 
-    mean_train = np.mean(img_array)
-    sd_train = np.std(img_array)
-    img_array -= mean_train
-    img_array /= sd_train
+    img_array -= 126.145118219
+    img_array /= 52.3865033171
 
     return img_array
 
 
 #to normalize subtract mean and divide by standard deviation
-
-get_signs(1)
