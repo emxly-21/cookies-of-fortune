@@ -142,14 +142,14 @@ def load_data(pathGl, pathFr, cutoff=.85):
     cosine similarity for two words
     to be considered connected.
 
-    Returns:
-    --------
+    Notes:
+    ------
     Tuple(Dictionary{String : int}, Dictionary{int: String}, Dictionary{String : List[String]})
     A dictionary that maps words
     to the most common words that
     are in the same component.
-    Also puts this dictionary
-    into a pickle file.
+    This dictionary is put into a
+    pickle file, named "info.pickle".
     '''
 
     glove = KeyedVectors.load_word2vec_format(pathGl, binary=False)
@@ -211,7 +211,30 @@ def load_data(pathGl, pathFr, cutoff=.85):
 
 def make_pic(pathGl, pathFr, num_reps=10000000):
     '''
-    does more stuff i guess
+    Creates a database mapping each word to a more common word that is similar to it.
+
+    This function utilizes the Whispers algorithm, along with a pre-created pickle file
+    containing an adjacency list for the graph, 
+
+    Parameters:
+    -----------
+    pathGl: String
+    A string containing a path to the
+    GloVe file of 50-dimensional
+    embeddings.
+
+    pathFr: String
+    A string containing a path to the
+    csv file of words by frequency.
+
+    num_reps: integer
+    The number of iterations that the
+    Whispers algorithm should run for.
+
+    Notes:
+    A pickle file named "database.pickle"
+    is created. This stores the dictionary,
+    which is a Dictionary{String : String}.
     '''
     glove = KeyedVectors.load_word2vec_format(pathGl, binary=False)
     print("glove loaded")

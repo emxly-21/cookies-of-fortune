@@ -1,6 +1,11 @@
 import pickle
+import gensim
+from gensim.models.keyedvectors import KeyedVectors
 
 def main():
+    '''
+    
+    '''
     pickleName="database.pickle"
     with open(pickleName,"rb") as dictFile:
         dic=pickle.load(dictFile)
